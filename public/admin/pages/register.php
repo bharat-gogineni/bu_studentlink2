@@ -1,0 +1,269 @@
+<?php
+	require('../includes/config.php');
+	require('../includes/login_db.php');
+	$obj->register('pages/login.php');
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="shortcut icon" href="../images/favicon.ico" />
+    <title>Registration Portal</title>
+
+    <?php include("./template/styles.php") ?>
+    <style>
+    	body {
+    		background: url("../images/photo_bg.jpg") no-repeat center center fixed;
+			background-size: cover;
+    	}
+    </style>
+
+	<script>
+		function validatePassword() {
+			var pass = document.getElementById("password").value;
+			var cpass = document.getElementById("cpassword").value;
+			if (pass == cpass) {
+				document.getElementById("cpassword").style.background = '#6FDC6F';
+				document.getElementById("passwordError").innerHTML="Passwords match";
+				return true;
+			} else {
+				document.getElementById("cpassword").style.background = '#e35152';
+				document.getElementById("passwordError").innerHTML = "Passwords do not match";
+				return false;
+			}
+		}
+		function validateForm() {
+			return validatePassword();
+		}
+	</script>
+
+
+</head>
+
+<body>
+	<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="" >StudentLink</a>
+        </div>
+        <a href="http://iiita.ac.in"><img src="../images/logo.png" class="nav navbar-top-links navbar-right" width="350px" height="49px"></a>
+    </nav>
+
+    <div class="container">
+    	<div class="row">
+    		<div class="col-md-7 col-md-offset-2">
+            	<div class="login-panel panel panel-default">
+                	<div class="panel-heading">
+                    	<h3 class="panel-title">Registration</h3>
+                	</div>
+					<div class="panel-body">
+						<form role="form" class="form-horizontal" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" onsubmit="return validateForm()">
+							<fieldset>
+								<legend>Login Information</legend>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Username: </label>
+									<div class="col-sm-8">
+										<input class="form-control" placeholder="eg. iit2014001" type="text" name="rollno" autofocus required/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Password: </label>
+									<div class="col-sm-8">
+										<input class="form-control" placeholder="Password" type="password" id="password" name="password" required/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Confirm Password: </label>
+									<div class="col-sm-8">
+										<input class="form-control" placeholder="Retype Password" type="password" name="cpassword" id="cpassword" onblur="validatePassword()" required/>
+									<span id="passwordError"></span>
+									</div>
+								</div>
+							</fieldset>
+							<br />
+							<fieldset>
+								<legend>Personal Information</legend>
+
+								<div class="form-group">
+									<label class="col-sm-4 control-label">First Name: </label>
+									<div class="col-sm-8">
+										<input class="form-control" placeholder="eg. John" type="text" name="fname" value="" required/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Last Name: </label>
+									<div class="col-sm-8">
+										<input class="form-control" placeholder="eg. Miller" type="text" name="lname" value="" />
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Sex: </label>
+									<div class="col-sm-8">
+									    <label class="radio-inline">
+                                            <input type="radio" name="sex" value="Male" checked>Male
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="sex" value="Female">Female
+                                        </label>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Date of birth: </label>
+									<div class="col-sm-8">
+										<div class="col-xs-4">
+											<select class="form-control" name="date_dob">
+												<option value="null">DD</option>
+												<?php
+													for($i=1; $i<=31; $i++) {
+														printf("<option value=\"%02u\"> %02u </option>",$i, $i);
+													}
+												?>
+											}
+											</select>
+										</div>
+										<div class="col-xs-4">
+											<select class="form-control" name="month_dob">
+												<option value="null">MM</option>
+												<?php
+													for($i=1; $i<=12; $i++) {
+														printf("<option value=\"%02u\"> %02u </option>",$i, $i);
+													}
+												?>
+											</select>
+										</div>
+										<div class="col-xs-4">
+											<select class="form-control" name="year_dob">
+												<option value="null">YYYY</option>
+												<?php
+													for($i=2006; $i>=1985; $i--) {
+														echo "<option value=\"$i\" > $i </option>";
+													}
+												?>
+											</select>
+										</div>
+									</div>
+								</div>
+							</fieldset>
+							<br />
+							<fieldset>
+								<legend>Parents'/Guardian's Information</legend>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Father's Name: </label>
+									<div class="col-sm-8">
+										<input class="form-control" placeholder="Father's name" type="text" name="father" required/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Mother's Name: </label>
+									<div class="col-sm-8">
+										<input class="form-control" placeholder="Mother's name" type="text" name="mother" required/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Contact Number: </label>
+									<div class="col-sm-8">
+										<input class="form-control" placeholder="eg. 91447284xx" type="text" name="contact_number"/>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Address: </label>
+									<div class="col-sm-8">
+										<input class="form-control" placeholder="House no." type="text" name="address_1" />
+										<input class="form-control" placeholder="City" type="text" name="address_2" />
+										<input class="form-control" placeholder="Zip code" type="text" name="address_3" />
+									</div>
+								</div>
+							</fieldset>
+							<br />
+							<fieldset>
+								<legend>Academic Information</legend>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Category: </label>
+									<div class="col-sm-4">
+										<select class="form-control"name="category">
+											<option value="General">General</option>
+											<option value="SC">SC</option>
+											<option value="ST">ST</option>
+											<option value="OBC-NCL">OBC-NCL</option>
+										</select>
+									</div>
+								</div>								
+								<div class="form-group">	
+									<label class="col-sm-4 control-label">Department: </label>
+									<div class="col-sm-8">
+                                        <div class="radio">
+                                            <label>
+                                          	  <input type="radio" name="department" value="I.T" checked>Information Technology
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input type="radio" name="department" value="E.C.E">Electronics and Communication
+                                            </label>
+                                        </div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Programme: </label>
+									<div class="col-sm-5">
+										<select class="form-control" name="programme">
+											<option value="B.Tech">B.Tech</option>
+											<option value="M.tech">M.Tech</option>
+											<option value="B.Tech-M.Tech Dual">B.Tech-M.Tech Dual</option>
+											<option value="P.h.d">P.h.d</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Batch: </label>
+									<div class="col-sm-3">
+										<select class="form-control" name="batch">
+											<?php
+												for($i=2016; $i>=2000; $i--) {
+													echo "<option value=\"$i\" > $i </option>";
+												}
+											?>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">Semester: </label>
+									<div class="col-sm-3">
+										<select class="form-control" name="semester"><?php 
+											for($i=1; $i<=8; $i++) {
+												echo "<option value=\"$i\" > $i </option>";
+											}
+										?>
+										</select>
+									</div>
+								</div>
+								<input type="hidden" name="date" value="<?php echo time(); ?>" />
+								<div class="form-group"></div>
+								<div class="form-group">
+									<div class="col-sm-offset-3 col-sm-7">
+										<input type="submit" value="Register" class="btn btn-lg btn-success btn-block"/>
+									</div>
+								</div>
+							</fieldset>
+						</form>
+						<label>Already registered? <a href="login.php">Log in here</a></label>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
